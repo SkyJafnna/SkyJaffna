@@ -377,6 +377,53 @@ border-radius:8px;
 </style>
 
 </head>
+  <script>
+
+let ownerPassword = "sky123";   // change this password
+
+function login(){
+
+let inputPassword = document.getElementById("password").value;
+
+if(inputPassword === ownerPassword){
+
+document.getElementById("adminPanel").style.display="block";
+document.getElementById("loginBox").style.display="none";
+
+alert("Owner login successful");
+
+}else{
+
+alert("Wrong password");
+
+}
+
+}
+
+function postNews(){
+
+let title=document.getElementById("title").value;
+let content=document.getElementById("content").value;
+
+let container=document.getElementById("newsContainer");
+
+let news=document.createElement("div");
+
+news.className="news";
+
+news.innerHTML=`
+<h3>${title}</h3>
+<p>${content}</p>
+`;
+
+container.prepend(news);
+
+document.getElementById("title").value="";
+document.getElementById("content").value="";
+
+}
+
+</script>
 
 <body>
 
@@ -435,6 +482,33 @@ btn.parentElement.remove();
 
 </body>
 </html>
+<h1>SkyJaffna News</h1>
+
+<!-- Owner Login -->
+<div id="loginBox">
+<h3>Owner Login</h3>
+<input type="password" id="password" placeholder="Enter Owner Password">
+<button onclick="login()">Login</button>
+</div>
+
+<!-- Admin News Posting Panel -->
+<div id="adminPanel" style="display:none;">
+
+<h3>Post News</h3>
+
+<input type="text" id="title" placeholder="News Title"><br><br>
+
+<textarea id="content" placeholder="Write news"></textarea><br><br>
+
+<button onclick="postNews()">Post News</button>
+
+</div>
+
+<hr>
+
+<h2>Latest News</h2>
+
+<div id="newsContainer"></div>
 
 
 
