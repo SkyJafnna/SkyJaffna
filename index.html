@@ -7,6 +7,62 @@ WELCOME TO SKY JAFFNA PLATFORM
 <title>SkyJaffna - Space & AI News</title>
 
 <style>
+  <script>
+
+let newsList = JSON.parse(localStorage.getItem("newsList")) || [];
+
+function displayNews(){
+    let container = document.getElementById("newsContainer");
+    container.innerHTML = "";
+
+    newsList.forEach((news,index)=>{
+
+        let div = document.createElement("div");
+        div.className = "news";
+
+        div.innerHTML = `
+        <h3>${news.title}</h3>
+        <p>${news.content}</p>
+        <button onclick="deleteNews(${index})">Delete</button>
+        `;
+
+        container.appendChild(div);
+
+    });
+}
+
+function postNews(){
+
+    let title = document.getElementById("title").value;
+    let content = document.getElementById("content").value;
+
+    if(title=="" || content==""){
+        alert("Enter news first");
+        return;
+    }
+
+    newsList.unshift({title:title,content:content});
+
+    localStorage.setItem("newsList", JSON.stringify(newsList));
+
+    document.getElementById("title").value="";
+    document.getElementById("content").value="";
+
+    displayNews();
+}
+
+function deleteNews(index){
+
+    newsList.splice(index,1);
+
+    localStorage.setItem("newsList", JSON.stringify(newsList));
+
+    displayNews();
+}
+
+displayNews();
+
+</script>
 
 body{
 font-family: Arial, sans-serif;
@@ -289,4 +345,18 @@ display:none;
 <body>
 
 <header>
+  <h2>Post News</h2>
+
+<input type="text" id="title" placeholder="News Title"><br><br>
+
+<textarea id="content" placeholder="Write your news here"></textarea><br><br>
+
+<button onclick="postNews()">Post News</button>
+
+<hr>
+
+<h2>Latest News</h2>
+
+<div id="newsContainer"></div>
+
 
