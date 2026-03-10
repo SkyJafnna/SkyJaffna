@@ -358,10 +358,103 @@ display:none;
 <h2>Latest News</h2>
 
 <div id="newsContainer"></div>
-  <div class="news">
-<h3>New Space Mission</h3>
-<p>SkyJaffna reports a new satellite launch today.</p>
-</div>
+ <!DOCTYPE html>
+<html>
+<head>
+<title>SkyJaffna News</title>
+
+<style>
+
+body{
+font-family: Arial;
+background:#0b0f2c;
+color:white;
+text-align:center;
+}
+
+input, textarea{
+width:300px;
+padding:10px;
+margin:5px;
+}
+
+button{
+padding:8px 15px;
+background:#1da1f2;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+.news{
+background:#11174a;
+margin:15px;
+padding:15px;
+border-radius:8px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>SkyJaffna</h1>
+
+<h2>Post News</h2>
+
+<input type="text" id="title" placeholder="News Title"><br>
+
+<textarea id="content" placeholder="News Content"></textarea><br>
+
+<button onclick="postNews()">Post News</button>
+
+<h2>Latest News</h2>
+
+<div id="newsContainer"></div>
+
+
+<script>
+
+function postNews(){
+
+let title=document.getElementById("title").value;
+let content=document.getElementById("content").value;
+
+if(title=="" || content==""){
+alert("Please enter news");
+return;
+}
+
+let container=document.getElementById("newsContainer");
+
+let news=document.createElement("div");
+news.className="news";
+
+news.innerHTML=
+`
+<h3>${title}</h3>
+<p>${content}</p>
+<button onclick="deleteNews(this)">Delete</button>
+`;
+
+container.prepend(news);
+
+document.getElementById("title").value="";
+document.getElementById("content").value="";
+
+}
+
+
+function deleteNews(btn){
+btn.parentElement.remove();
+}
+
+</script>
+
+</body>
+</html>
+
 
 
 
